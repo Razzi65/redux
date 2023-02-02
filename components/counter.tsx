@@ -1,10 +1,26 @@
 import { Button, Box } from '@chakra-ui/react'
-import useCounter from '@/custom Hooks/useCounter'
 import { useDispatch } from 'react-redux'
-import { doIncerement } from '@/store/counterSlice'
+import { doIncerement, doDecerement, doReset } from '@/store/counterSlice'
+import { useSelector } from "react-redux"
+
 
 const Counter = () => {
-    const {count, incerement, decerement, reset} = useCounter()
+    const count = useSelector((store)=> store.counterSlice.count)
+    const dispatch = useDispatch()
+
+    const incerement = () => {
+        dispatch(doIncerement())
+    }
+
+    const decerement = () => {
+        dispatch(doDecerement())
+    }
+
+        const reset = () => {
+            dispatch(doReset())
+            
+        }
+    
     
     return ( <>
     <Box p={5}>
@@ -21,7 +37,8 @@ const Counter = () => {
              <Button onClick={()=>reset()} colorScheme='red'>RESET</Button>
              </Box>
         </>
-    )
-}
+    )}
+
+
 
 export default Counter
